@@ -3,7 +3,6 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,13 +11,13 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class TennisTest {
 
-    private int player1Score;
-    private int player2Score;
+    private int scorePlayer1;
+    private int scorePlayer2;
     private String expectedScore;
 
-    public TennisTest(int player1Score, int player2Score, String expectedScore) {
-        this.player1Score = player1Score;
-        this.player2Score = player2Score;
+    public TennisTest(int scorePlayer1, int scorePlayer2, String expectedScore) {
+        this.scorePlayer1 = scorePlayer1;
+        this.scorePlayer2 = scorePlayer2;
         this.expectedScore = expectedScore;
     }
     
@@ -67,14 +66,14 @@ public class TennisTest {
     }
 
     public void checkAllScores(TennisGame game) {
-        int highestScore = Math.max(this.player1Score, this.player2Score);
+        int highestScore = Math.max(this.scorePlayer1, this.scorePlayer2);
         for (int i = 0; i < highestScore; i++) {
-            if (i < this.player1Score)
+            if (i < this.scorePlayer1)
                 game.wonPoint("player1");
-            if (i < this.player2Score)
+            if (i < this.scorePlayer2)
                 game.wonPoint("player2");
         }
-        assertEquals(this.expectedScore, game.getScore());
+        assertEquals(this.expectedScore, game.getLabelScore());
     }
 
     @Test

@@ -1,35 +1,50 @@
 
 public class TennisGame3 implements TennisGame {
-    
-    private int p2;
-    private int p1;
-    private String p1N;
-    private String p2N;
 
-    public TennisGame3(String p1N, String p2N) {
-        this.p1N = p1N;
-        this.p2N = p2N;
+    private int scorePlayer1;
+    private int scorePlayer2;
+    private String player1;
+    private String player2;
+    String[] LABEL = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
+    String ALL = "All";
+    String DEUCE = "Deuce";
+    String AVANTAGE = "Advantage ";
+    String WIN = "Win for ";
+
+    public TennisGame3(String player1, String player2) {
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
-    public String getScore() {
-        String s;
-        if (p1 < 4 && p2 < 4 && !(p1 + p2 == 6)) {
-            String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"}; 
-            s = p[p1];
-            return (p1 == p2) ? s + "-All" : s + "-" + p[p2];
-        } else {
-            if (p1 == p2)
-                return "Deuce";
-            s = p1 > p2 ? p1N : p2N;
-            return ((p1-p2)*(p1-p2) == 1) ? "Advantage " + s : "Win for " + s;
-        }
+    public String getLabelScore() {
+        return isGameGoingAndSetInferiorTo40_40()
+                ? getLabelScoreGameGoing()
+                : getLabelScoreEndSetOrGame();
     }
-    
+
+    private boolean isGameGoingAndSetInferiorTo40_40() {
+        return scorePlayer1 < 4 && scorePlayer2 < 4 && !(scorePlayer1 + scorePlayer2 == 6);
+    }
+
+    private String getLabelScoreGameGoing() {
+        String labelScore = LABEL[scorePlayer1] + "-";
+        return (scorePlayer1 == scorePlayer2)
+                ? labelScore + ALL
+                : labelScore + LABEL[scorePlayer2];
+    }
+
+    private String getLabelScoreEndSetOrGame() {
+        if (scorePlayer1 == scorePlayer2)
+            return DEUCE;
+        String labelScore = scorePlayer1 > scorePlayer2 ? player1 : player2;
+        return ((scorePlayer1 - scorePlayer2)*(scorePlayer1 - scorePlayer2) == 1) ? AVANTAGE + labelScore : WIN + labelScore;
+    }
+
     public void wonPoint(String playerName) {
         if (playerName == "player1")
-            this.p1 += 1;
+            this.scorePlayer1 += 1;
         else
-            this.p2 += 1;
+            this.scorePlayer2 += 1;
         
     }
 
