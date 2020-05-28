@@ -13,12 +13,12 @@ public class TennisTest {
 
     private int scorePlayer1;
     private int scorePlayer2;
-    private String expectedScore;
+    private String expectedLabelScore;
 
-    public TennisTest(int scorePlayer1, int scorePlayer2, String expectedScore) {
+    public TennisTest(int scorePlayer1, int scorePlayer2, String expectedLabelScore) {
         this.scorePlayer1 = scorePlayer1;
         this.scorePlayer2 = scorePlayer2;
-        this.expectedScore = expectedScore;
+        this.expectedLabelScore = expectedLabelScore;
     }
     
     @Parameters
@@ -73,7 +73,7 @@ public class TennisTest {
             if (i < this.scorePlayer2)
                 game.wonPoint("player2");
         }
-        assertEquals(this.expectedScore, game.getLabelScore());
+        assertEquals(this.expectedLabelScore, game.getLabelScore());
     }
 
     @Test
@@ -90,7 +90,9 @@ public class TennisTest {
 
     @Test
     public void checkAllScoresTennisGame3() {
-        TennisGame3 game = new TennisGame3("player1", "player2");
+        Player player1 = new Player("player1");
+        Player player2 = new Player("player2");
+        TennisGame3 game = new TennisGame3(player1, player2);
         checkAllScores(game);
     }
 
